@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gradeinfo</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            text-align:center;
+            padding:20px;
+        }
+
+        h1{
+            color:#2c3e50;
+        }
+
+        button{
+            padding:8px 15px;
+            margin:5px;
+            cursor:pointer;
+        }
+
+        input{
+            padding:8px;
+            width:250px;
+            margin:15px 0;
+        }
+
+        table{
+            width:80%;
+            margin:auto;
+            border-collapse:collapse;
+        }
+
+        th, td{
+            border:1px solid #ccc;
+            padding:10px;
+            text-align:center;
+        }
+
+        th{
+            background:#f2f2f2;
+        }
+
+        .passed{
+            color:green;
+            font-weight:bold;
+        }
+
+        .failed{
+            color:red;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Gradeinfo</h1>
+
+    <button onclick="filterRemarks('Passed')">Show Passed</button>
+    <button onclick="filterRemarks('Failed')">Show Failed</button>
+    <button onclick="showAll()">Show All</button>
+
+    <br>
+
+    <input type="text" id="search" placeholder="Search name..." onkeyup="searchStudent()">
+
+    <table id="gradeTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>G1</th>
+                <th>G2</th>
+                <th>G3</th>
+                <th>Ave</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jake</td>
+                <td>85</td>
+                <td>88</td>
+                <td>90</td>
+                <td>87.67</td>
+                <td class="passed">Passed</td>
+            </tr>
+
+            <tr>
+                <td>Gerald</td>
+                <td>70</td>
+                <td>75</td>
+                <td>72</td>
+                <td>72.33</td>
+                <td class="failed">Failed</td>
+            </tr>
+
+            <tr>
+                <td>John Dexter</td>
+                <td>95</td>
+                <td>92</td>
+                <td>94</td>
+                <td>93.67</td>
+                <td class="passed">Passed</td>
+            </tr>
+
+            <tr>
+                <td>Jamaica</td>
+                <td>60</td>
+                <td>65</td>
+                <td>70</td>
+                <td>65.00</td>
+                <td class="failed">Failed</td>
+            </tr>
+        </tbody>
+    </table>
+
+<script>
+
+function filterRemarks(status){
+    let rows = document.querySelectorAll("#gradeTable tbody tr");
+
+    rows.forEach(row=>{
+        let remark = row.cells[5].textContent;
+
+        if(remark === status){
+            row.style.display="";
+        }else{
+            row.style.display="none";
+        }
+    });
+}
+
+function showAll(){
+    let rows = document.querySelectorAll("#gradeTable tbody tr");
+
+    rows.forEach(row=>{
+        row.style.display="";
+    });
+}
+
+function searchStudent(){
+    let input = document.getElementById("search").value.toLowerCase();
+    let rows = document.querySelectorAll("#gradeTable tbody tr");
+
+    rows.forEach(row=>{
+        let name = row.cells[0].textContent.toLowerCase();
+
+        if(name.includes(input)){
+            row.style.display="";
+        }else{
+            row.style.display="none";
+        }
+    });
+}
+
+</script>
+
+</body>
+</html>
